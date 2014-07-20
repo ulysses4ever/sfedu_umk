@@ -1,0 +1,102 @@
+\documentclass {scrartcl} % [fontsize=14pt] 
+
+\usepackage {cmap}
+\usepackage [T2A] {fontenc}
+\usepackage [utf8] {inputenc}
+\usepackage [english, russian] {babel}
+\usepackage{pbox}      % боксы на титульных страницах
+
+% Отступы
+\usepackage{setspace}      % Межстрочный интервал
+%\onehalfspacing
+\usepackage{indentfirst}
+\frenchspacing
+\parindent=1.25cm
+
+
+% Поля
+\usepackage %
+[ %
+  left = 2.5cm,
+  right = 1.5cm,
+  top = 2cm,
+  bottom = 1.27cm,
+  includefoot,
+  footskip = 1cm
+] %
+  {geometry}
+
+% Шрифт
+%\usepackage{paratype}
+%\usepackage{libertine}
+\usepackage{droid}        % имеется капитель и даже полужирная капитель
+\usepackage{textcase}    % Преобразование к верхнему регистру
+
+% Бланки
+\newcommand{\uline}[1]{\underline{\makebox[#1]{}}}
+\newcommand{\ugap}{\uline{.5cm}}
+\newcommand{\ulinepad}[1]{%
+\underline{\makebox[.3cm]{\vphantom{#1}}}%
+\underline{#1}%
+\underline{\makebox[.3cm]{\vphantom{#1}}}%
+}
+
+% Вид заголовков
+\renewcommand{\thesection}{\Roman{section}}    % римские номера для разделов
+
+% вид заголовка раздела:
+% \KOMAoption{headings}{normal} % уменьшить кегль
+\addtokomafont{section}{\scshape\centering} 
+
+% вид заголовка подраздела:
+%% серия грязных хаков. Идея в реализации подраздела через параграфы.
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\setkomafont{paragraph}{\normalfont} 
+\usepackage{etoolbox}
+\renewcommand{\theparagraph}{\arabic{section}.\arabic{paragraph}}
+% команда для подраздела: \ssect или \ssect[Заголовок]
+\newcommand{\ssect}[1][]{%
+	\ifstrempty{#1}{%
+		\setkomafont{paragraph}{\normalfont} 
+		\paragraph{}
+	}{%
+		\setkomafont{paragraph}{\normalfont\bfseries}
+		\paragraph{#1} 
+	}%
+}
+% теперь параграф это практически подраздел и с точки зрения toc
+\makeatletter
+\renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
+\makeatother
+
+
+\renewcommand \date [1] %
+{ %
+  \newcommand \thedate {#1} %
+} %
+
+\newcommand {\vgap} {\vspace{1.2\baselineskip}} %
+
+% титульная страница РПД
+\AtBeginDocument %
+{ %
+  %
+
+} %
+
+% ----------------------------------------------------------------
+% Настройка переносов и разрывов страниц
+
+\binoppenalty = 10000      % Запрет переносов строк в формулах
+\relpenalty = 10000        %
+
+\sloppy                    % Не выходить за границы бокса
+%\tolerance = 400          % или более точно
+\clubpenalty = 10000       % Запрет разрывов страниц после первой
+\widowpenalty = 10000      % и перед предпоследней строкой абзаца
+
+% ----------------------------------------------------------------
+
+
+\endinput

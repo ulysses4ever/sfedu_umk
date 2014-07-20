@@ -1,73 +1,99 @@
-\documentclass {scrartcl} % [fontsize=14pt] 
+\input umk_preamble
 
-\usepackage {cmap}
-\usepackage [T2A] {fontenc}
-\usepackage [utf8] {inputenc}
-\usepackage [english, russian] {babel}
-
-% Отступы
-%\usepackage{setspace}      % Межстрочный интервал
-%\onehalfspacing
-\usepackage{indentfirst}
-\frenchspacing
-\parindent=1.25cm
-
-
-% Поля
-\usepackage %
-[ %
-  left = 2.5cm,
-  right = 1.5cm,
-  top = 2cm,
-  bottom = 1.27cm,
-  includefoot,
-  footskip = 1cm
-] %
-  {geometry}
-
-% Шрифт
-%\usepackage{mathptmx}
-%\usepackage{paratype}
-%\usepackage{droid}
-\usepackage{droid}
-%\usepackage{textcase}    % Преобразование к верхнему регистру
-
-% Бланки
-\newcommand{\uline}[1]{\rule[0pt]{#1}{0.4pt}}
-\newcommand{\ugap}{\uline{1cm}}
-
-% Вид заголовков
-\renewcommand{\thesection}{\Roman{section}}    % римские номера для разделов
-
-% вид заголовка раздела:
-% \KOMAoption{headings}{normal} % уменьшить кегль
-\addtokomafont{section}{\scshape\bfseries\centering} 
-
-% вид заголовка подраздела:
-%% серия грязных хаков. Идея в реализации подраздела через параграфы.
-\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
-\setkomafont{paragraph}{\normalfont} 
-\usepackage{etoolbox}
-\renewcommand{\theparagraph}{\arabic{section}.\arabic{paragraph}}
-\newcommand{\ssect}[1][]{%
-	\ifstrempty{#1}{%
-		\setkomafont{paragraph}{\normalfont} 
-		\paragraph{}
-	}{%
-		\setkomafont{paragraph}{\normalfont\bfseries}
-		\paragraph{#1} 
-	}%
-}
-% теперь параграф это практически подраздел
-\makeatletter
-\renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
-\makeatother
-
+\date{2014}
 
 \begin{document}
+  \thispagestyle {empty}\large
+  %  
+  \begin{spacing}{1.1}
+  \begin {center}
+    %
+    \textsc{Минобрнауки России}
 
-\tableofcontents
+    \vgap
+    Федеральное государственное автономное образовательное
+    учреждение высшего профессионального образования
+
+    \textsc{Южный федеральный университет}
+
+    \vgap
+    Институт математики, механики и компьютерных наук
+    %
+  \end {center}
+  %
+    \vgap
+	\hfill 
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	Утверждаю
+
+	Директор института
+
+	\vspace{2\baselineskip}
+	\hfill М.\,И.~Карякин
+	\hrule
+
+	\vspace{.5\baselineskip}
+	<<1>> августа 2014\,г. 
+	\end{center}
+	\end{minipage}
+    
+  \vgap
+  \begin {center}
+    {\LARGE\bfseries
+    \textsc{Рабочая программа дисциплины}
+    
+    <<Архитектура компьютера>>\par
+    }
+
+    \vgap
+    Направление подготовки\\
+    Прикладная математика и информатика~--- 01.03.02
+
+    \vgap
+    Профиль подготовки: \uline{5cm}
+
+    \vgap
+    Квалификация (степень) выпускника\\
+    \ulinepad{бакалавр}
+
+    \vgap
+    Кафедра \ulinepad{информатики и вычислительного эксперимента}
+
+    \vgap
+    Курс \ulinepad{2}    семестр \ulinepad{1}
+
+    \vgap
+    Форма обучения \ulinepad{очная}
+
+    \vgap
+    Программа разработана \hfill
+    %
+	\begin{minipage}[t]{.65\textwidth}
+	\begin{flushleft}
+	А.\,М.~Пеленицыным, ассистентом кафедры информатики и вычислительного эксперимента
+	\end{flushleft}
+	\end{minipage}
+
+	\vgap
+	\begin{flushleft}
+	Рецензент(ы)
+	\end{flushleft}
+	\uline{.8\textwidth}
+  \end {center}
+  %
+  \vspace {\fill}
+  %
+  \begin {center}
+    %
+    Ростов-на-Дону~--- \thedate
+    %
+  \end {center}
+  %
+  \end{spacing}
+  \clearpage\normalsize
+
+%\tableofcontents
 
 \section{Цели и задачи освоения дисциплины}
 Настоящий курс является продолжением курса «Компьютерные науки», который 
