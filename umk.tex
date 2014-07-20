@@ -1,0 +1,101 @@
+\documentclass {scrartcl} % [fontsize=14pt] 
+
+\usepackage {cmap}
+\usepackage [T2A] {fontenc}
+\usepackage [utf8] {inputenc}
+\usepackage [english, russian] {babel}
+
+% Отступы
+%\usepackage{setspace}      % Межстрочный интервал
+%\onehalfspacing
+\usepackage{indentfirst}
+\frenchspacing
+\parindent=1.25cm
+
+
+% Поля
+\usepackage %
+[ %
+  left = 2.5cm,
+  right = 1.5cm,
+  top = 2cm,
+  bottom = 1.27cm,
+  includefoot,
+  footskip = 1cm
+] %
+  {geometry}
+
+% Шрифт
+%\usepackage{mathptmx}
+%\usepackage{paratype}
+%\usepackage{droid}
+\usepackage{droid}
+%\usepackage{textcase}    % Преобразование к верхнему регистру
+
+% Бланки
+\newcommand{\uline}[1]{\rule[0pt]{#1}{0.4pt}}
+\newcommand{\ugap}{\uline{1cm}}
+
+% Вид заголовков
+\renewcommand{\thesection}{\Roman{section}}    % римские номера для разделов
+
+% вид заголовка раздела:
+% \KOMAoption{headings}{normal} % уменьшить кегль
+\addtokomafont{section}{\scshape\bfseries\centering} 
+
+% вид заголовка подраздела:
+%% серия грязных хаков. Идея в реализации подраздела через параграфы.
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\setkomafont{paragraph}{\normalfont} 
+\usepackage{etoolbox}
+\renewcommand{\theparagraph}{\arabic{section}.\arabic{paragraph}}
+\newcommand{\ssect}[1][]{%
+	\ifstrempty{#1}{%
+		\setkomafont{paragraph}{\normalfont} 
+		\paragraph{}
+	}{%
+		\setkomafont{paragraph}{\normalfont\bfseries}
+		\paragraph{#1} 
+	}%
+}
+% теперь параграф это практически подраздел
+\makeatletter
+\renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
+\makeatother
+
+
+\begin{document}
+
+\tableofcontents
+
+\section{Цели и задачи освоения дисциплины}
+Настоящий курс является продолжением курса «Компьютерные науки», который 
+читается для студентов-математиков в 1–2 семестре 1 курса. На первом курсе 
+студенты осваивают язык Паскаль, изучают его базовые типы, управляющие 
+операторы, процедурную модель программирования и знакомятся с методами 
+обработки сложных структур данных: массивов, строк, файлов, динамических 
+структур. При разработке курса «Компьютерные науки» для 1 семестра 2 курса 
+было учтено, что студенты, приступающие к его изучению, уже владеют базовыми 
+приемами программирования (на уровне процедурной модели) и знакомы с языком 
+Паскаль и современными интегрированными средами для данного языка (Borland 
+Delphi, Free Pascal Lazarus, PascalABC.NET).
+
+\section{Место дисциплины в структуре ООП ВПО}
+
+\ssect[fff]
+
+Учебная дисциплина «Компьютерные науки» (2 курс, 1 семестр) относится к профессиональному циклу.
+
+\ssect
+
+Учебная дисциплина «Компьютерные науки» (2 курс, 1 семестр) относится к 
+профессиональному циклу.
+
+\ssect[ggg]
+
+Учебная дисциплина «Компьютерные науки» (2 курс, 1 семестр) относится к 
+профессиональному циклу.
+
+
+\end{document}
