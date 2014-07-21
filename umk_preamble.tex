@@ -70,10 +70,50 @@
 \renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
 \makeatother
 
-
+% Макросы титульной страницы
 \renewcommand \date [1] %
 { %
   \newcommand \thedate {#1} %
+} %
+
+\newcommand \course [1] %
+{ %
+  \newcommand \thecourse {#1} %
+} %
+
+\newcommand \direction [1] %
+{ %
+  \newcommand \thedirection {#1} %
+} %
+
+\newcommand \degree [1] %
+{ %
+  \newcommand \thedegree {#1} %
+} %
+
+\newcommand \bychair [1] %
+{ %
+  \newcommand \thebychair {#1} %
+} %
+
+\newcommand \yearofstudy [1] %
+{ %
+  \newcommand \theyearofstudy {#1} %
+} %
+
+\newcommand \term [1] %
+{ %
+  \newcommand \theterm {#1} %
+} %
+
+\newcommand \form [1] %
+{ %
+  \newcommand \theform {#1} %
+} %
+
+\newcommand \createdby [1] %
+{ %
+  \newcommand \thecreatedby {#1} %
 } %
 
 \newcommand {\vgap} {\vspace{1.2\baselineskip}} %
@@ -81,8 +121,95 @@
 % титульная страница РПД
 \AtBeginDocument %
 { %
-  %
+  \thispagestyle {empty}\large
+  %  
+  \begin{spacing}{1.1}
+  \begin {center}
+    %
+    \textsc{Минобрнауки России}
 
+    \vgap
+    Федеральное государственное автономное образовательное
+    учреждение высшего профессионального образования
+
+    \textsc{Южный федеральный университет}
+
+    \vgap
+    Институт математики, механики и компьютерных наук
+    %
+  \end {center}
+  %
+    \vgap
+	\hfill 
+	\begin{minipage}{0.45\textwidth}
+	\begin{center}
+	Утверждаю
+
+	Директор института
+
+	\vspace{2\baselineskip}
+	\hfill М.\,И.~Карякин
+	\hrule
+
+	\vspace{.5\baselineskip}
+	<<1>> августа 2014\,г. 
+	\end{center}
+	\end{minipage}
+    
+  \vgap
+  \begin {center}
+    {\LARGE\bfseries
+    \textsc{Рабочая программа дисциплины}
+    
+    <<\thecourse>>\par
+    }
+
+    \vgap
+    Направление подготовки\\
+    \thedirection
+
+    \vgap
+    Профиль подготовки: \uline{5cm}
+
+    \vgap
+    Квалификация (степень) выпускника\\
+    \ulinepad{\thedegree}
+
+    \vgap
+    Кафедра \ulinepad{\thebychair}
+
+    \vgap
+    Курс \ulinepad{\theyearofstudy} $\quad$ семестр \ulinepad{\theterm}
+
+    \vgap
+    Форма обучения \ulinepad{\theform}
+
+    \vgap
+    Программа разработана \hfill
+    %
+	\begin{minipage}[t]{.65\textwidth}
+	\begin{flushleft}
+	\thecreatedby
+	\end{flushleft}
+	\end{minipage}
+
+	\vgap
+	\begin{flushleft}
+	Рецензент(ы)
+	\end{flushleft}
+	\uline{.8\textwidth}
+  \end {center}
+  %
+  \vspace {\fill}
+  %
+  \begin {center}
+    %
+    Ростов-на-Дону~--- \thedate
+    %
+  \end {center}
+  %
+  \end{spacing}
+  \clearpage\normalsize
 } %
 
 % ----------------------------------------------------------------
