@@ -5,6 +5,7 @@
 \usepackage [utf8] {inputenc}
 \usepackage [english, russian] {babel}
 \usepackage{pbox}      % боксы на титульных страницах
+\usepackage{lipsum}	   % Рыба
 
 % Отступы
 \usepackage{setspace}      % Межстрочный интервал
@@ -50,13 +51,14 @@
 
 % вид заголовка подраздела:
 %% серия грязных хаков. Идея в реализации подраздела через параграфы.
-\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
-\setkomafont{paragraph}{\normalfont} 
+\setcounter{secnumdepth}{5} 
+% \setcounter{tocdepth}{5} % если нужно видеть подразделы в Содержании
+\newcounter{ssectCounter}[section]
+\renewcommand{\theparagraph}{\arabic{section}.\arabic{ssectCounter}}
 \usepackage{etoolbox}
-\renewcommand{\theparagraph}{\arabic{section}.\arabic{paragraph}}
 % команда для подраздела: \ssect или \ssect[Заголовок]
 \newcommand{\ssect}[1][]{%
+	\stepcounter{ssectCounter}
 	\ifstrempty{#1}{%
 		\setkomafont{paragraph}{\normalfont} 
 		\paragraph{}
@@ -78,7 +80,7 @@
 
 \newcommand \course [1] %
 { %
-  \newcommand \thecourse {#1} %
+  \newcommand \thecourse {<<#1>>} %
 } %
 
 \newcommand \direction [1] %
@@ -161,7 +163,7 @@
     {\LARGE\bfseries
     \textsc{Рабочая программа дисциплины}
     
-    <<\thecourse>>\par
+    \thecourse\par
     }
 
     \vgap
@@ -225,5 +227,69 @@
 
 % ----------------------------------------------------------------
 
+% Настройка списков
+\usepackage {enumitem}
+% нумерация кириллическими буквами
+\makeatletter
+    \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
+\makeatother
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+
+% Таблицы
+%\usepackage{longtable}
+%\usepackage{float}
+%\restylefloat{longtable}
+
+% Команда для описания модуля 
+% Вначале создаём новый тип перечисления типа description
+%   с горизонтальными линиями после функтов
+%   http://tex.stackexchange.com/q/44205/7460
+
+\usepackage{framed}
+\usepackage{letltxmacro}
+\usepackage{xstring}
+
+\newtoggle{IsFirstItem}  % so we don't add rule above first item
+\toggletrue{IsFirstItem} % personal preference: initialize variables
+						 %           explicetly at time of defintion
+
+\newcommand*{\WernersHRule}{ % 
+   \par\kern\dimexpr.7\itemsep-\parskip-.3\baselineskip\relax%
+   \hrulefill%\rule{\textwidth}{.4mm}%
+   \par\kern\dimexpr.3\itemsep-.3\parskip-.3\baselineskip\relax%
+}%
+
+
+\LetLtxMacro{\OriginalItem}{\item}         % store existing definition of \item
+\newcommand{\ItemWithRuleAbove}[1][]{%
+    \iftoggle{IsFirstItem}{}{\WernersHRule}% only add \hrule if not first item
+    \IfStrEq{#1}{}{\OriginalItem }{\OriginalItem [#1]}%
+    \togglefalse{IsFirstItem}%
+}%
+
+\newenvironment{MyUnitDescription}{%
+    \toggletrue{IsFirstItem}%
+    \let\item\ItemWithRuleAbove%
+    \begin{description}[topsep=0pt]%
+}{%
+    \end{description}%
+}%
+
+\setlength{\FrameRule}{.6mm}
+
+\newcounter{myunitCounter}
+\newcommand{\themyunit}{\arabic{myunitCounter}}
+
+\newcommand{\myunit}[3]{%
+\stepcounter{myunitCounter}
+\begin{framed}
+\begin{MyUnitDescription}
+	\item [Номер модуля:] \themyunit
+	\item [Название модуля:]	#1
+	\item [Содержание модуля] #2
+	\item [Формы текущего контроля] #3
+\end{MyUnitDescription}
+\end{framed} 
+}
 
 \endinput
