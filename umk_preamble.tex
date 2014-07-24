@@ -236,14 +236,14 @@
 \renewcommand{\labelenumi}{\asbuk{enumi})}
 
 % Таблицы
-%\usepackage{longtable}
+\usepackage{longtable}
 %\usepackage{float}
 %\restylefloat{longtable}
 
-% Команда для описания модуля 
-% Вначале создаём новый тип перечисления типа description
-%   с горизонтальными линиями после функтов
-%   http://tex.stackexchange.com/q/44205/7460
+% Команда для описания модуля (myunit)
+% Вначале создаём новый тип перечня на базе description
+%   с горизонтальными линиями после пунктов
+%   http://tex.stackexchange.com/q/44205/7460 много кода :(
 
 \usepackage{framed}
 \usepackage{letltxmacro}
@@ -259,7 +259,6 @@
    \par\kern\dimexpr.3\itemsep-.3\parskip-.3\baselineskip\relax%
 }%
 
-
 \LetLtxMacro{\OriginalItem}{\item}         % store existing definition of \item
 \newcommand{\ItemWithRuleAbove}[1][]{%
     \iftoggle{IsFirstItem}{}{\WernersHRule}% only add \hrule if not first item
@@ -267,6 +266,7 @@
     \togglefalse{IsFirstItem}%
 }%
 
+% наконец, сам новый тип перечня на базе description:
 \newenvironment{MyUnitDescription}{%
     \toggletrue{IsFirstItem}%
     \let\item\ItemWithRuleAbove%
@@ -275,21 +275,120 @@
     \end{description}%
 }%
 
+% Увеличенная толщина рамки для информации о модуле
 \setlength{\FrameRule}{.6mm}
 
+% Счётчик модулей
 \newcounter{myunitCounter}
 \newcommand{\themyunit}{\arabic{myunitCounter}}
 
+% Сохраняем имена модулей для использования в следующем пункте
+\usepackage{pgfkeys}
+\newcommand{\setvalue}[1]{\pgfkeys{/variables/#1}}
+\newcommand{\getvalue}[1]{\pgfkeysvalueof{/variables/#1}}
+\newcommand{\declare}[1]{%
+ \pgfkeys{
+  /variables/#1.is family,
+  /variables/#1.unknown/.style = {\pgfkeyscurrentpath/\pgfkeyscurrentname/.initial = ##1}
+ }%
+}
+\declare{UnitNames/}
+
 \newcommand{\myunit}[3]{%
-\stepcounter{myunitCounter}
-\begin{framed}
-\begin{MyUnitDescription}
-	\item [Номер модуля:] \themyunit
-	\item [Название модуля:]	#1
-	\item [Содержание модуля] #2
-	\item [Формы текущего контроля] #3
-\end{MyUnitDescription}
-\end{framed} 
+	\stepcounter{myunitCounter}
+	\IfEq{\themyunit}{1}{\mbox{}
+	 % маленький хак, чтобы описание первого модуля не всплыло выше заголовка
+	}{}
+	\setvalue{UnitNames/\themyunit = #1} % сохранили название
+	\begin{framed}
+	\begin{MyUnitDescription}
+		\item [Номер модуля:] \themyunit
+		\item [Название модуля:]	#1
+		\item [Содержание модуля] #2
+		\item [Формы текущего контроля] #3
+	\end{MyUnitDescription}
+	\end{framed} 
+}
+
+% Команды для описания расчасовки в модуле (myunithours, printhours)
+
+\usepackage{calc}
+\newcounter{distantUnitHours}
+\newcounter{wholeUnitHours}
+
+% величины для последней строки таблицы (Итого)
+\newcounter{wholeHours}
+\newcounter{lectureHours}
+\newcounter{seminarHours}
+\newcounter{labHours}
+\newcounter{distantHours}
+
+\setcounter{wholeHours}{0}
+\setcounter{lectureHours}{0}
+\setcounter{seminarHours}{0}
+\setcounter{labHours}{0}
+\setcounter{distantHours}{0}
+
+\newcommand{\ifZeroErase}[1]{%
+	\IfEq{#1}{0}{}{#1}
+}
+
+\newcommand{\myunithours}[3]{%
+	\setcounter{distantUnitHours}{#1 + #2 + #3}%
+	\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
+%
+	\addtocounter{wholeHours}{\value{wholeUnitHours}}%
+	\addtocounter{lectureHours}{#1}%
+	\addtocounter{seminarHours}{#2 + 0}%
+	\addtocounter{labHours}{#3 + 0}%
+	\addtocounter{distantHours}{\value{distantUnitHours}}%
+%
+	\stepcounter{myunitCounter}%
+	\themyunit & \getvalue{UnitNames/\themyunit}
+		& \arabic{wholeUnitHours}
+		& #1
+		& #2
+		& #3
+		& \arabic{distantUnitHours} \\ \hline
+}
+
+
+\newcommand{\printhours}[2]{
+\setcounter{myunitCounter}{0}
+\begin{longtable}{|c|p{6cm}|c|c|c|c|c|} 
+	\caption*{\textbf{Модули дисциплины, изучаемые в #1 семестре}} \\
+
+	\hline
+	& 
+	& \multicolumn{5}{|c|}{\bfseries Количество часов} \\ \cline{3-7}
+\bfseries
+\begin{tabular}{c}
+	№ \\ модуля 
+\end{tabular}
+	& \centering\bfseries Наименование модулей
+    & \bfseries Всего
+    & \multicolumn{3}{|c|}{\bfseries%
+	    \begin{tabular}{c}
+		Аудиторная \\ работа 
+		\end{tabular}}
+    & \bfseries
+    	\begin{tabular}{c}
+		Внеауд. \\ работа \\ СР
+		\end{tabular} \\ \cline{4-6} %\hline
+&
+	&
+	& \bfseries Л
+	& \bfseries ПЗ
+	& \bfseries ЛР
+	& \\ \hline
+#2
+&	Итого:
+	& \arabic{wholeHours}
+	& \ifZeroErase{\arabic{lectureHours}}
+	& \ifZeroErase{\arabic{seminarHours}}
+	& \ifZeroErase{\arabic{labHours}}
+	& \arabic{distantHours} \\ \hline
+\end{longtable}
 }
 
 \endinput
