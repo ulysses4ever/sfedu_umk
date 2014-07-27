@@ -465,10 +465,6 @@
 
 % Печать информации о лабораторных (при необходимости)
 
-\declare{LabNames/}
-\declare{LabUnit/}
-\declare{LabHours/}
-
 \newcounter{mylabCounter}
 \setcounter{mylabCounter}{0}
 
@@ -490,7 +486,11 @@
 		\\ \hline%
 }
 
+\newcommand{\mysem}[2]{\mylab{#1}{#2}}
+
 \newcommand{\printlabs}[1]{%
+\mbox{}
+
 \begin{longtabu} to \textwidth {|c|c|X[p]|c|}
 	\hline
 	\bfseries
@@ -514,5 +514,32 @@
 \end{longtabu}
 }
 
+\newcommand{\printseminars}[1]{%
+\mbox{}
+
+\setcounter{mylabCounter}{0}
+\setcounter{mylabUnitCounter}{1}
+\begin{longtabu} to \textwidth {|c|c|X[p]|c|}
+	\hline
+	\bfseries
+	\begin{tabular}{c}
+		№ \\ занятия 
+	\end{tabular}
+		&
+		\bfseries
+		\begin{tabular}{c}
+			№ \\ модуля 
+		\end{tabular}
+		&
+		\centering\bfseries Тема
+		&
+		\bfseries
+		\begin{tabular}{c}
+			Кол-во \\ часов
+		\end{tabular}
+		\\ \hline
+	#1
+\end{longtabu}
+}
 
 \endinput
