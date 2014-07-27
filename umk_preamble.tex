@@ -316,6 +316,8 @@
 % Команды для описания расчасовки в модуле (myunithours, printhours)
 
 \usepackage{calc}
+\usepackage{array}
+\usepackage{tabu}
 
 % величины, вычисляемые относительно заданных часов лек./практ./лаб.
 \newcounter{distantUnitHours} % = лек. + практ. + лаб.
@@ -381,27 +383,34 @@
 	\setlength\LTleft{0pt}
 	\setlength\LTright{0pt}
 
-	\begin{longtable}{|p{10.9cm} | c|} \hline
-	\textsc{Вид работы} & \textsc{Трудоемкость (часов)} 		\\ \hline
+	\tabulinesep = 1mm
+	\begin{longtabu} to \textwidth {|X[4,p] | X[1,c,p]|} \hline
+	\textsc{Вид работы} & \textsc{%
+		\begin{tabular}{cc}
+			Трудоемкость\\(часов)
+		\end{tabular}
+	} 															\\ \hline
 	\textbf{Общая трудоемкость} 	& \arabic{wholeHours} 		\\ \hline
 	\textbf{Аудиторная работа:}		& \arabic{distantHours} 	\\ \hline % всегда равна самостоятельной, поэтому отдельно не считали
-	Лекции (Л) 						& \arabic{lectureHours} 	\\ \hline
-	Практические занятия (ПЗ)		& \arabic{seminarHours} 	\\ \hline
-	Лабораторные работы (ЛР) 		& \arabic{labHours} 		\\ \hline
+	\hspace{1.25cm}Лекции (Л) 		& \arabic{lectureHours} 	\\ \hline
+	\hspace{1.25cm}Практические занятия (ПЗ)
+									& \arabic{seminarHours} 	\\ \hline
+	\hspace{1.25cm}Лабораторные работы (ЛР)
+									& \arabic{labHours} 		\\ \hline
 	\textbf{Самостоятельная работа:}& 							\\ \hline
-	Самоподготовка (проработка и повторение лекционного материала и материала учебников и учебных пособий, подготовка к лабораторным и практическим занятиям, коллоквиумам, рубежному контролю и т.д.)%
+	\hspace{1.25cm}Самоподготовка (проработка и повторение лекционного материала и материала учебников и учебных пособий, подготовка к лабораторным и практическим занятиям, коллоквиумам, рубежному контролю и т.д.)%
 									& \arabic{distantHours} 	\\ \hline
 	Вид итогового контроля (зачет, экзамен)% 
 									& #2 						\\ \hline
-	\end{longtable}
+	\end{longtabu}
 
 	% Вторая таблица с подробной расчасовкой
-	\begin{longtable}{|c|p{6cm}|c|c|c|c|c|} 
+	\begin{longtabu} to .98\textwidth {|c|X[p]|c|c|c|c|c|} % .98  это грязный хак: не знаю, почему она выходит шире, чем нужно без него
 		\caption*{\textsc{Модули дисциплины, изучаемые в #1 семестре}} \\
 
 		\hline
 		& 
-		& \multicolumn{5}{|c|}{\bfseries Количество часов} \\ \cline{3-7}
+		& \multicolumn{5}{c|}{\bfseries Количество часов} \\ \cline{3-7}
 		%
 	\bfseries
 	\begin{tabular}{c}
@@ -409,7 +418,7 @@
 	\end{tabular}
 		& \centering\bfseries Наименование модулей
 	    & \bfseries Всего
-	    & \multicolumn{3}{|c|}{\bfseries%
+	    & \multicolumn{3}{c|}{\bfseries%
 		    \begin{tabular}{c}
 			Аудиторная \\ работа 
 			\end{tabular}}
@@ -434,6 +443,7 @@
 			+ \getvalue{UnitSeminarHours/\arabic{myunitIdx}}
 			+ \getvalue{UnitLabHours/\arabic{myunitIdx}}}%
 		\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
+		\IfEq{\arabic{myunitIdx}}{1}{\hspace{-1mm}}{}
 		\arabic{myunitIdx} 
 			& \getvalue{UnitNames/\arabic{myunitIdx}}
 			& \arabic{wholeUnitHours}
@@ -450,7 +460,7 @@
 		& \ifZeroErase{\arabic{labHours}}
 		& \arabic{distantHours} 
 		\\ \hline
-	\end{longtable}
+	\end{longtabu}
 }
 
 % Печать информации о лабораторных (при необходимости)
@@ -472,6 +482,7 @@
 \newcommand{\mylab}[2]{%
 	\stepcounter{mylabCounter}
 
+	\IfEq{\arabic{mylabCounter}}{1}{}{\hspace{-.1cm}}%
 	\arabic{mylabCounter}
 	& \arabic{mylabUnitCounter}
 	& #1
@@ -480,7 +491,7 @@
 }
 
 \newcommand{\printlabs}[1]{%
-\begin{longtable}{|c|c|p{9.6cm}|c|}
+\begin{longtabu} to \textwidth {|c|c|X[p]|c|}
 	\hline
 	\bfseries
 	\begin{tabular}{c}
@@ -500,7 +511,7 @@
 		\end{tabular}
 		\\ \hline
 	#1
-\end{longtable}
+\end{longtabu}
 }
 
 
