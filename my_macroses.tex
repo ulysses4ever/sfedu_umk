@@ -1,0 +1,35 @@
+% Бланки
+\newcommand{\uline}[1]{\underline{\makebox[#1]{}}}
+\newcommand{\ugap}{\uline{.5cm}}
+\newcommand{\ulinepad}[1]{%
+\underline{\makebox[.3cm]{\vphantom{#1}}}%
+\underline{#1}%
+\underline{\makebox[.3cm]{\vphantom{#1}}}%
+}
+
+\newcommand{\fillanswer}[1]{%
+  \unskip\ \lhrulefill%
+  \makebox[0pt]{#1}%
+  \lhrulefill\ \ignorespaces%
+}
+
+\newcommand{\lhrulefill}{%
+  \leavevmode
+  \leaders\hrule height -.3ex depth \dimexpr .3ex+.4pt\relax % define the leader
+  \hskip\glueexpr\fill/2\relax\relax % how much it should extend
+  \kern0pt
+}
+
+% ----------------------------------------------------------------
+% Настройка переносов и разрывов страниц
+
+\binoppenalty = 10000      % Запрет переносов строк в формулах
+\relpenalty = 10000        %
+
+\sloppy                    % Не выходить за границы бокса
+%\tolerance = 400          % или более точно
+\clubpenalty = 10000       % Запрет разрывов страниц после первой
+\widowpenalty = 10000      % и перед предпоследней строкой абзаца
+
+% ----------------------------------------------------------------
+

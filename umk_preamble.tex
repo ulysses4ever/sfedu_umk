@@ -33,14 +33,7 @@
 \usepackage{droid}        % имеется капитель и даже полужирная капитель
 \usepackage{textcase}    % Преобразование к верхнему регистру
 
-% Бланки
-\newcommand{\uline}[1]{\underline{\makebox[#1]{}}}
-\newcommand{\ugap}{\uline{.5cm}}
-\newcommand{\ulinepad}[1]{%
-\underline{\makebox[.3cm]{\vphantom{#1}}}%
-\underline{#1}%
-\underline{\makebox[.3cm]{\vphantom{#1}}}%
-}
+\input my_macroses.tex
 
 % Вид заголовков
 \renewcommand{\thesection}{\Roman{section}}    % римские номера для разделов
@@ -214,26 +207,8 @@
   \clearpage\normalsize
 } %
 
-% ----------------------------------------------------------------
-% Настройка переносов и разрывов страниц
-
-\binoppenalty = 10000      % Запрет переносов строк в формулах
-\relpenalty = 10000        %
-
-\sloppy                    % Не выходить за границы бокса
-%\tolerance = 400          % или более точно
-\clubpenalty = 10000       % Запрет разрывов страниц после первой
-\widowpenalty = 10000      % и перед предпоследней строкой абзаца
-
-% ----------------------------------------------------------------
-
 % Настройка списков
 \usepackage {enumitem}
-% нумерация кириллическими буквами
-\makeatletter
-    \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
-\makeatother
-\renewcommand{\labelenumi}{\asbuk{enumi})}
 
 % Таблицы
 \usepackage{longtable}
@@ -405,7 +380,7 @@
 	\end{longtabu}
 
 	% Вторая таблица с подробной расчасовкой
-	\begin{longtabu} to .98\textwidth {|c|X[p]|c|c|c|c|c|} % .98  это грязный хак: не знаю, почему она выходит шире, чем нужно без него
+	\begin{longtabu} to \textwidth {|c|X[p]|c|c|c|c|c|} % .98  это грязный хак: не знаю, почему она выходит шире, чем нужно без него
 		\caption*{\textsc{Модули дисциплины, изучаемые в #1 семестре}} \\
 
 		\hline
@@ -413,17 +388,17 @@
 		& \multicolumn{5}{c|}{\bfseries Количество часов} \\ \cline{3-7}
 		%
 	\bfseries
-	\begin{tabular}{c}
+	\begin{tabular}{@{}c@{}}
 		№ \\ модуля 
 	\end{tabular}
 		& \centering\bfseries Наименование модулей
 	    & \bfseries Всего
 	    & \multicolumn{3}{c|}{\bfseries%
-		    \begin{tabular}{c}
+		    \begin{tabular}{@{}c@{}}
 			Аудиторная \\ работа 
 			\end{tabular}}
 	    & \bfseries
-	    	\begin{tabular}{c}
+	    	\begin{tabular}{@{}c@{}}
 			Внеауд. \\ работа \\ СР
 			\end{tabular} \\ \cline{4-6}
 			%
