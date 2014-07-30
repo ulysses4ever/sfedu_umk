@@ -65,52 +65,6 @@
 \renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
 \makeatother
 
-% Макросы титульной страницы
-\renewcommand \date [1] %
-{ %
-  \newcommand \thedate {#1} %
-} %
-
-\newcommand \course [1] %
-{ %
-  \newcommand \thecourse {<<#1>>} %
-} %
-
-\newcommand \direction [1] %
-{ %
-  \newcommand \thedirection {#1} %
-} %
-
-\newcommand \degree [1] %
-{ %
-  \newcommand \thedegree {#1} %
-} %
-
-\newcommand \bychair [1] %
-{ %
-  \newcommand \thebychair {#1} %
-} %
-
-\newcommand \yearofstudy [1] %
-{ %
-  \newcommand \theyearofstudy {#1} %
-} %
-
-\newcommand \term [1] %
-{ %
-  \newcommand \theterm {#1} %
-} %
-
-\newcommand \form [1] %
-{ %
-  \newcommand \theform {#1} %
-} %
-
-\newcommand \createdby [1] %
-{ %
-  \newcommand \thecreatedby {#1} %
-} %
-
 \newcommand {\vgap} {\vspace{1.2\baselineskip}} %
 
 % титульная страница РПД
@@ -253,100 +207,25 @@
 % Увеличенная толщина рамки для информации о модуле
 \setlength{\FrameRule}{.6mm}
 
-% Счётчик модулей
-\newcounter{myunitCounter}
-\newcommand{\themyunit}{\arabic{myunitCounter}}
-
 % Сохраняем имена модулей для использования в следующем пункте
-\usepackage{pgfkeys}
-\newcommand{\setvalue}[1]{\pgfkeys{/variables/#1}}
-\newcommand{\getvalue}[1]{\pgfkeysvalueof{/variables/#1}}
-\newcommand{\declare}[1]{%
- \pgfkeys{
-  /variables/#1.is family,
-  /variables/#1.unknown/.style = {\pgfkeyscurrentpath/\pgfkeyscurrentname/.initial = ##1}
- }%
-}
-
-% пространство имён переменных для имён модулей
-\declare{UnitNames/}
 
 % Макрос описания одного модуля
-\newcommand{\myunit}[3]{%
+\newcommand{\myunit}[2]{%
 	\stepcounter{myunitCounter}
 	\IfEq{\themyunit}{1}{\mbox{}
 	 % маленький хак, чтобы описание первого модуля не всплыло выше заголовка
 	}{}
-	\setvalue{UnitNames/\themyunit = #1} % сохранили название
 	\begin{framed}
 	\begin{MyUnitDescription}
 		\item [Номер модуля:] \themyunit
-		\item [Название модуля:]	#1
-		\item [Содержание модуля] #2
-		\item [Формы текущего контроля] #3
+		\item [Название модуля:] \getvalue{UnitNames/\themyunit}
+		\item [Содержание модуля] #1
+		\item [Формы текущего контроля] #2
 	\end{MyUnitDescription}
-	\end{framed} 
+	\end{framed}
 }
 
-% Команды для описания расчасовки в модуле (myunithours, printhours)
-
-\usepackage{calc}
-\usepackage{array}
-\usepackage{tabu}
-
-% величины, вычисляемые относительно заданных часов лек./практ./лаб.
-\newcounter{distantUnitHours} % = лек. + практ. + лаб.
-\newcounter{wholeUnitHours}   % = 2 * distantUnitHours
-
-% счётчик модулей
-\newcounter{myunitIdx}
-\setcounter{myunitIdx}{0}
- 
-% величины для последней строки таблицы (Итого)
-\newcounter{wholeHours}
-\newcounter{lectureHours}
-\newcounter{seminarHours}
-\newcounter{labHours}
-\newcounter{distantHours}
-
-\setcounter{wholeHours}{0}
-\setcounter{lectureHours}{0}
-\setcounter{seminarHours}{0}
-\setcounter{labHours}{0}
-\setcounter{distantHours}{0}
-
-% если получилось 0 часов, то не пишем (для последней строки -- Итого)
-\newcommand{\ifZeroErase}[1]{%
-	\IfEq{#1}{0}{}{#1}
-}
-
-% будем запоминать значения часов по каждому модулю, потому что
-% вначале нужно сгенерировать таблицу с суммами, а потом -- с часами
-
-% пространства имён для часов по каждому модулю
-\declare{UnitLectureHours/}
-\declare{UnitSeminarHours/}
-\declare{UnitLabHours/}
-
-\newcommand{\myunithours}[3]{%
-
-	% вычисляем рассчитываемые часы (всего и дистантные)
-	\setcounter{distantUnitHours}{#1 + #2 + #3}%
-	\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
-%
-	% пересчитываем общие суммы
-	\addtocounter{wholeHours}{\value{wholeUnitHours}}%
-	\addtocounter{lectureHours}{#1}%
-	\addtocounter{seminarHours}{#2 + 0}%
-	\addtocounter{labHours}{#3 + 0}%
-	\addtocounter{distantHours}{\value{distantUnitHours}}%
-%
-	% запоминаем значения часов для текущего модуля
-	\stepcounter{myunitIdx}
-	\setvalue{UnitLectureHours/\arabic{myunitIdx} = #1}
-	\setvalue{UnitSeminarHours/\arabic{myunitIdx} = #2}
-	\setvalue{UnitLabHours/\arabic{myunitIdx} = #3}
-}
+% Команда для печати расчасовки модулей (printhours)
 
 \usepackage{forloop}
 

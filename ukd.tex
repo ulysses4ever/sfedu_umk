@@ -1,0 +1,51 @@
+\documentclass {scrartcl} % [fontsize=14pt] 
+
+\usepackage {cmap}
+\usepackage [T2A] {fontenc}
+\usepackage [utf8] {inputenc}
+\usepackage [english, russian] {babel}
+
+% Отступы
+\usepackage{setspace}      % Межстрочный интервал
+%\onehalfspacing
+\usepackage{indentfirst}
+\frenchspacing
+\parindent=1.25cm
+
+% Поля
+\usepackage %
+[ %
+  left = 2.5cm,
+  right = 1.5cm,
+  top = 2cm,
+  bottom = 1.27cm,
+  includefoot,
+  footskip = 1cm
+] %
+  {geometry}
+
+% Шрифт
+%\usepackage{paratype}
+%\usepackage{libertine}
+\usepackage{droid}        % имеется капитель и даже полужирная капитель
+
+% Таблицы
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabu}
+
+% вид заголовка раздела:
+% \KOMAoption{headings}{normal} % уменьшить кегль
+\addtokomafont{section}{\scshape\centering} 
+
+\input my_macroses.tex
+
+\input general_info.tex
+
+\begin{document}
+
+\input my_units.tex
+
+\section*{Учебная карта дисциплины\\\underline{\thecourse}}
+\input ukd_body.tex
+\end{document}

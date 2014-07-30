@@ -1,7 +1,9 @@
 \begin{spacing}{1.5}
-{\centering \ulinepad{???} зач. ед., ак. ч. всего: \ulinepad{???}, в т. ч.: \ulinepad{???} лекций, \ulinepad{???} практич., \ulinepad{???} лаб.}
+\begin{center}
+\ulinepad{???} зач. ед., ак. ч. всего: \ulinepad{???}, в т. ч.: \ulinepad{???} лекций, \ulinepad{???} практич., \ulinepad{???} лаб.
+\end{center} 
 
-\noindent Преподаватель: \fillanswer{Артём Михайлович Пеленицын}
+\noindent Преподаватель: \fillanswer{\thefullname}
 
 \noindent Кафедра: \fillanswer{\thebychair}
 
@@ -10,6 +12,11 @@
 \noindent Направление подготовки: \fillanswer{прикладная математика и информатика}
 \end{spacing}
 
+%   ниже использованы две таблицы для описания УКД, это отличается от формата,
+%   данного в образце УКД из П248-ОД, однако их формат:
+%		1) неразумно использует пространство страницы (широкие 
+%			колонки с числами)
+%		2) сложно или невозможно воспроизвести одной таблицей в LaTeX
 {\small\tabulinesep = 2mm
 \begin{longtabu} to \textwidth {|c|X[3,p]|X[c]|X[c]|}%c|
 	\hline
