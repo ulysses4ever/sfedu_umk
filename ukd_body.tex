@@ -1,16 +1,23 @@
 \begin{spacing}{1.5}
 \begin{center}
-\ulinepad{???} зач. ед., ак. ч. всего: \ulinepad{???}, в т. ч.: \ulinepad{???} лекций, \ulinepad{???} практич., \ulinepad{???} лаб.
+\ulinepad{\theects} зач. ед., ак. ч. всего: \ulinepad{\arabic{wholeHours}}, в т. ч.: \ulinepad{\arabic{lectureHours}~ч.} лекций, \ulinepad{\arabic{seminarHours}~ч.} практич., \ulinepad{\arabic{labHours}~ч.} лаб.
 \end{center} 
 
 \noindent Преподаватель: \fillanswer{\thefullname}
 
 \noindent Кафедра: \fillanswer{\thebychair}
 
-\noindent Курс: \ulinepad{???} Семестр: \ulinepad{???}
+\noindent Курс: \ulinepad{\theyearofstudy} Семестр: \ulinepad{\theglobalterm}
 
-\noindent Направление подготовки: \fillanswer{прикладная математика и информатика}
+\noindent Направление подготовки: \fillanswer{\theshortdirection}
 \end{spacing}
+% -- или
+%\noindent Направление подготовки: \fillanswer{фундаментальная информатика}
+
+%\noindent \hphantom{Направление подготовки:}\fillanswer{и информационные технологии}
+
+% для математики можно убрать абзац после курса/семестра, то есть сделать их
+% в одну строку с направлением
 
 %   ниже использованы две таблицы для описания УКД, это отличается от формата,
 %   данного в образце УКД из П248-ОД, однако их формат:

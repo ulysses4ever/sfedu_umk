@@ -33,19 +33,27 @@
 \usepackage{array}
 \usepackage{longtable}
 \usepackage{tabu}
+\usepackage{amsmath}
 
 % вид заголовка раздела:
 % \KOMAoption{headings}{normal} % уменьшить кегль
 \addtokomafont{section}{\scshape\centering} 
 
+\setlength{\parindent}{0cm}
 \input my_macroses.tex
 
 \input general_info.tex
 
 \begin{document}
+\thispagestyle{empty}
 
 \input my_units.tex
 
 \section*{Учебная карта дисциплины\\\underline{\thecourse}}
 \input ukd_body.tex
+
+\vspace{2cm}
+Преподаватель:
+	$\underset{\text{подпись}}{\underline{\hspace{5cm}\vphantom{\text{\theshortname}}}}$
+	\ulinepad{/\theshortname/}
 \end{document}
