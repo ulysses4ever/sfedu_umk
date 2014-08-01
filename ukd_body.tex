@@ -1,6 +1,10 @@
+% сверху можно ничего не редактировать
 \begin{spacing}{1.5}
 \begin{center}
-\ulinepad{\theects} зач. ед., ак. ч. всего: \ulinepad{\arabic{wholeHours}}, в т. ч.: \ulinepad{\arabic{lectureHours}~ч.} лекций, \ulinepad{\arabic{seminarHours}~ч.} практич., \ulinepad{\arabic{labHours}~ч.} лаб.
+\ulinepad{\theects} зач. ед., ак. ч. всего: \ulinepad{\arabic{wholeHours}}, в т. ч.:
+\IfEq{\arabic{lectureHours}}{0}{}{\ulinepad{\arabic{lectureHours}~ч.} лекций,}
+\IfEq{\arabic{seminarHours}}{0}{}{\ulinepad{\arabic{seminarHours}~ч.} практич.,}
+\IfEq{\arabic{labHours}}{0}{}{\ulinepad{\arabic{labHours}~ч.} лаб.}
 \end{center} 
 
 \noindent Преподаватель: \fillanswer{\thefullname}
@@ -9,7 +13,9 @@
 
 \noindent Курс: \ulinepad{\theyearofstudy} Семестр: \ulinepad{\theglobalterm}
 
-\noindent Направление подготовки: \fillanswer{\theshortdirection}
+% здесь могут быть сложности с форматированием в зависимости от названия
+%	направления
+\noindent Направление подготовки: \fillanswer{прикладная математика и информатика}
 \end{spacing}
 % -- или
 %\noindent Направление подготовки: \fillanswer{фундаментальная информатика}
@@ -24,6 +30,8 @@
 %		1) неразумно использует пространство страницы (широкие 
 %			колонки с числами)
 %		2) сложно или невозможно воспроизвести одной таблицей в LaTeX
+
+% внесите перечень мероприятий в рамках каждого модуля и баллы за них
 {\small\tabulinesep = 2mm
 \begin{longtabu} to \textwidth {|c|X[3,p]|X[c]|X[c]|}%c|
 	\hline
@@ -39,52 +47,52 @@
 		&
 		\centering Модуль 1. \getvalue{UnitNames/1}
 		&
-		20
+		10 % сумма баллов по текущему к. за модуль 1
 		&
-		40
+		10 % сумма баллов по рубежному к. за модуль 1
 	\\\hline
 	1.
 		& 
-		Эссе (по теме)
+		??? меропритие 1
 		&
 		5
 		&
 	\\\hline
 	2.
 		& 
-		Контрольная работа
+		??? меропритие 2
+		&
 		&
 		10
-		&
 	\\\hline
 	3.
 		& 
-		Тест
+		??? меропритие 3
 		&
 		5
 		&
 	\\\hline
-	4.
-		& 
-		Проектное задание
-		&
-		&
-		10
-	\\\hline
 		&
 		\centering Модуль 2. \getvalue{UnitNames/2}
 		&
-		20
+		???
 		&
-		40
+		???
 	\\\hline
 	1.
 		& 
-		???
+		??? меропритие 1
 		&
 		???
 		&
 		???
+	\\\hline
+	2.
+		& 
+		??? меропритие 2
+		&
+		&
+		10
 	\\\hline
 		&
 		Всего
