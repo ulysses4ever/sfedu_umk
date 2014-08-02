@@ -229,10 +229,7 @@
 
 \usepackage{forloop}
 
-\newcommand{\printhours}[1][0]{
-	%
-	\IfEq{#1}{0}{}{\setcounter{distantHours}{#1}}
-	%
+\newcommand{\printhours}{
 	Общая трудоемкость дисциплины составляет
 	\ulinepad{\theects} зач.~ед. (\ulinepad{\arabic{wholeHours}} часов).
 
@@ -297,19 +294,19 @@
 	% Цикл генерации строк таблицы с часами для каждого модуля
 	\stepcounter{myunitCounter}
 	\forloop{myunitIdx}{1}{\value{myunitIdx} < \value{myunitCounter}} {%
-		\setcounter{distantUnitHours}{%
-			\getvalue{UnitLectureHours/\arabic{myunitIdx}}
+		\setcounter{wholeUnitHours}{%
+			\getvalue{UnitDistantHours/\arabic{myunitIdx}}
+			+ \getvalue{UnitLectureHours/\arabic{myunitIdx}}
 			+ \getvalue{UnitSeminarHours/\arabic{myunitIdx}}
 			+ \getvalue{UnitLabHours/\arabic{myunitIdx}}}%
-		\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
-		\IfEq{\arabic{myunitIdx}}{1}{\hspace{-1mm}}{}
+		\IfEq{\arabic{myunitIdx}}{1}{\hspace{-1mm}}{} % ужасный хак
 		\arabic{myunitIdx} 
 			& \getvalue{UnitNames/\arabic{myunitIdx}}
 			& \arabic{wholeUnitHours}
 			& \getvalue{UnitLectureHours/\arabic{myunitIdx}}
 			& \getvalue{UnitSeminarHours/\arabic{myunitIdx}}
 			& \getvalue{UnitLabHours/\arabic{myunitIdx}}
-			& \arabic{distantUnitHours}
+			& \getvalue{UnitDistantHours/\arabic{myunitIdx}}
 			\\ \hline
 	}
 	&	Итого:

@@ -140,9 +140,8 @@
 \usepackage{array}
 \usepackage{tabu}
 
-% величины, вычисляемые относительно заданных часов лек./практ./лаб.
-\newcounter{distantUnitHours} % = лек. + практ. + лаб.
-\newcounter{wholeUnitHours}   % = 2 * distantUnitHours
+% величины, вычисляемые относительно заданных часов лек./практ./лаб./СР
+\newcounter{wholeUnitHours}  % общее число часов
 
 % счётчик модулей
 \newcounter{myunitIdx}
@@ -175,28 +174,25 @@
 \declare{UnitLectureHours/}
 \declare{UnitSeminarHours/}
 \declare{UnitLabHours/}
+\declare{UnitDistantHours/}
 
-\newcommand{\myunithours}[3]{%
-	% вычисления производятся в предположении, что аудиторные и
-	% дистантные часы совпадают, если это не так, то нужно будет
-	% задать один необязательный аргумент команде \printhours
-	% (подробнее см. определение \printhours в umk_preamble.tex)
-	% вычисляем рассчитываемые часы (всего и дистантные)
-	\setcounter{distantUnitHours}{#1 + #2 + #3}%
-	\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
+\newcommand{\myunithours}[4]{%
+	% #1 -- лекц, #2 -- практ., #3 -- лаб., #4 -- СР
+	\setcounter{wholeUnitHours}{#1 + #2 + #3 + #4}%
 %
 	% пересчитываем общие суммы
 	\addtocounter{wholeHours}{\value{wholeUnitHours}}%
-	\addtocounter{lectureHours}{#1}%
+	\addtocounter{lectureHours}{#1 + 0}%
 	\addtocounter{seminarHours}{#2 + 0}%
 	\addtocounter{labHours}{#3 + 0}%
-	\addtocounter{distantHours}{\value{distantUnitHours}}%
-	\addtocounter{hallHours}{\value{distantUnitHours}}
+	\addtocounter{distantHours}{#4}%
+	\addtocounter{hallHours}{#1 + #2 + #3}
 %
 	% запоминаем значения часов для текущего модуля
 	\stepcounter{myunitIdx}
 	\setvalue{UnitLectureHours/\arabic{myunitIdx} = #1}
 	\setvalue{UnitSeminarHours/\arabic{myunitIdx} = #2}
 	\setvalue{UnitLabHours/\arabic{myunitIdx} = #3}
+	\setvalue{UnitDistantHours/\arabic{myunitIdx} = #4}
 }
 
