@@ -154,12 +154,14 @@
 \newcounter{seminarHours}
 \newcounter{labHours}
 \newcounter{distantHours}
+\newcounter{hallHours}
 
 \setcounter{wholeHours}{0}
 \setcounter{lectureHours}{0}
 \setcounter{seminarHours}{0}
 \setcounter{labHours}{0}
 \setcounter{distantHours}{0}
+\setcounter{hallHours}{0}
 
 % если получилось 0 часов, то не пишем (для последней строки -- Итого)
 \newcommand{\ifZeroErase}[1]{%
@@ -175,7 +177,10 @@
 \declare{UnitLabHours/}
 
 \newcommand{\myunithours}[3]{%
-
+	% вычисления производятся в предположении, что аудиторные и
+	% дистантные часы совпадают, если это не так, то нужно будет
+	% задать один необязательный аргумент команде \printhours
+	% (подробнее см. определение \printhours в umk_preamble.tex)
 	% вычисляем рассчитываемые часы (всего и дистантные)
 	\setcounter{distantUnitHours}{#1 + #2 + #3}%
 	\setcounter{wholeUnitHours}{\value{distantUnitHours} * 2}%
@@ -186,6 +191,7 @@
 	\addtocounter{seminarHours}{#2 + 0}%
 	\addtocounter{labHours}{#3 + 0}%
 	\addtocounter{distantHours}{\value{distantUnitHours}}%
+	\addtocounter{hallHours}{\value{distantUnitHours}}
 %
 	% запоминаем значения часов для текущего модуля
 	\stepcounter{myunitIdx}

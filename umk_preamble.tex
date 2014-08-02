@@ -229,7 +229,10 @@
 
 \usepackage{forloop}
 
-\newcommand{\printhours}{
+\newcommand{\printhours}[1][0]{
+	%
+	\IfEq{#1}{0}{}{\setcounter{distantHours}{#1}}
+	%
 	Общая трудоемкость дисциплины составляет
 	\ulinepad{\theects} зач.~ед. (\ulinepad{\arabic{wholeHours}} часов).
 
@@ -247,7 +250,7 @@
 		\end{tabular}
 	} 															\\ \hline
 	\textbf{Общая трудоемкость} 	& \arabic{wholeHours} 		\\ \hline
-	\textbf{Аудиторная работа:}		& \arabic{distantHours} 	\\ \hline % всегда равна самостоятельной, поэтому отдельно не считали
+	\textbf{Аудиторная работа:}		& \arabic{hallHours}	 	\\ \hline % всегда равна самостоятельной, поэтому отдельно не считали
 	\hspace{1.25cm}Лекции (Л) 		& \arabic{lectureHours} 	\\ \hline
 	\hspace{1.25cm}Практические занятия (ПЗ)
 									& \arabic{seminarHours} 	\\ \hline
