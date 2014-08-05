@@ -399,11 +399,14 @@
 \end{longtabu}
 }
 
-\newcommand{\rusitems}{%
 \makeatletter
     \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
 \makeatother
+
+\newcommand{\rusitems}{%
 \renewcommand{\labelenumi}{\asbuk{enumi})}
 }
+
+\renewcommand{\labelenumii}{\asbuk{enumii})}
 
 \endinput
