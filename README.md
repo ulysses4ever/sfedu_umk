@@ -19,5 +19,5 @@ sfedu_umk
 
 Для компиляции любого из этих файлов необходимо заполнить информацию в файлах `general_info.tex` и `my_units.tex`.
 
-Пример рыбы для УМК/РПД в PDF, полученной из данного шаблона 
+Пример рыбы для УМК/РПД в PDF, полученной из данного шаблона, 
 [можно посмотреть здесь](https://www.sharelatex.com/github/repos/ulysses4ever/sfedu_umk/builds/latest/output.pdf).
