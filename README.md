@@ -18,3 +18,5 @@ sfedu_umk
 * `ukd.tex` для получения standalone УКД.
 
 Для компиляции любого из этих файлов необходимо заполнить информацию в файлах `general_info.tex` и `my_units.tex`.
+
+[Пример рыбы для УМК/РПД в PDF можно посмотреть здесь.![PDF](https://www.sharelatex.com/github/repos/ulysses4ever/sfedu_umk/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/ulysses4ever/sfedu_umk/builds/latest/output.pdf)
