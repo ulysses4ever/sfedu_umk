@@ -1,15 +1,23 @@
-\documentclass {scrartcl} % [fontsize=14pt] 
+\documentclass[fontsize=14pt]{scrartcl} %
 
 \usepackage {cmap}
 \usepackage [T2A] {fontenc}
 \usepackage [utf8] {inputenc}
 \usepackage [english, russian] {babel}
-\usepackage{pbox}      % боксы на титульных страницах
-\usepackage{lipsum}	   % Рыба
+\usepackage{pbox}      	% боксы на титульных страницах
+\usepackage{lipsum}	   	% Рыба
+\usepackage{url}		% Гиперссылки
+\usepackage{pdflscape}
+\usepackage{graphicx}
+
+% Таблицы
+\usepackage[singlelinecheck=off,font=bf,labelfont=bf,labelsep=period]{caption}
+\captionsetup[table]{name=}
+\renewcommand\thetable{\arabic{section}.\arabic{table}}
 
 % Отступы
 \usepackage{setspace}      % Межстрочный интервал
-%\onehalfspacing
+\onehalfspacing
 \usepackage{indentfirst}
 \frenchspacing
 \parindent=1.25cm
@@ -40,11 +48,11 @@
 
 % вид заголовка раздела:
 % \KOMAoption{headings}{normal} % уменьшить кегль
-\addtokomafont{section}{\scshape\centering} 
+\addtokomafont{section}{\scshape\centering}
 
 % вид заголовка подраздела:
 %% серия грязных хаков. Идея в реализации подраздела через параграфы.
-\setcounter{secnumdepth}{5} 
+\setcounter{secnumdepth}{5}
 % \setcounter{tocdepth}{5} % если нужно видеть подразделы в Содержании
 \newcounter{ssectCounter}[section]
 \renewcommand{\theparagraph}{\arabic{section}.\arabic{ssectCounter}}
@@ -53,11 +61,11 @@
 \newcommand{\ssect}[1][]{%
 	\stepcounter{ssectCounter}
 	\ifstrempty{#1}{%
-		\setkomafont{paragraph}{\normalfont} 
+		\setkomafont{paragraph}{\normalfont}
 		\paragraph{}
 	}{%
 		\setkomafont{paragraph}{\normalfont\bfseries}
-		\paragraph{#1} 
+		\paragraph{#1}
 	}%
 }
 % теперь параграф это практически подраздел и с точки зрения toc
@@ -65,16 +73,17 @@
 \renewcommand*\l@paragraph{\bprot@dottedtocline{2}{1.8em}{2.2em}}
 \makeatother
 
-\newcommand {\vgap} {\vspace{1.2\baselineskip}} %
+\newcommand {\vgap} {\vspace{0.7\baselineskip}} %
 
 % титульная страница РПД
 \AtBeginDocument %
 { %
-  \thispagestyle {empty}\large
-  %  
+  \thispagestyle {empty}
+  %
   \begin{spacing}{1.1}
   \begin {center}
     %
+    {\small
     \textsc{Минобрнауки России}
 
     \vgap
@@ -84,69 +93,70 @@
     \textsc{Южный федеральный университет}
 
     \vgap
-    Институт математики, механики и компьютерных наук
+    Институт математики, механики и компьютерных наук им.~И.\,И.~Воровича}
     %
   \end {center}
   %
     \vgap
-	\hfill 
-	\begin{minipage}{0.45\textwidth}
-	\begin{center}
-	Утверждаю
+	\hfill
+	\begin{minipage}{0.45\textwidth}\small
+	\hfill УТВЕРЖДАЮ
 
-	Директор института
+	\vspace{.3cm}
+	Руководитель направления
 
-	\vspace{2\baselineskip}
-	\hfill М.\,И.~Карякин
+	\vspace{1cm}
+        \hspace{2.7cm}/
+
 	\hrule
 
+	\vspace{.2cm}
+        \hspace{.3cm} (\emph{подпись}) \hfill (\emph{Ф.И.О.}) \hspace{1.5cm}
+
 	\vspace{.5\baselineskip}
-	<<1>> августа 2014\,г. 
-	\end{center}
+	<<\uline{\widthof{XXXX}}>> \uline{\widthof{XXXXXXXXXXXXXXXX}}
+         20\ugap\,г.
 	\end{minipage}
-    
-  \vgap
+
+  \vgap\vgap
   \begin {center}
-    {\LARGE\bfseries
+    {\large\bfseries
     \textsc{Рабочая программа дисциплины}
-    
+
     \thecourse\par
     }
 
-    \vgap
+    \vgap\vgap
     Направление подготовки\\
     \thedirection
 
     \vgap
-    Профиль подготовки: \uline{5cm}
-
-    \vgap
-    Квалификация (степень) выпускника\\
+    Уровень образования\\
     \ulinepad{\thedegree}
-
-    \vgap
-    Кафедра \ulinepad{\thebychair}
-
-    \vgap
-    Курс \ulinepad{\theyearofstudy} $\quad$ семестр \ulinepad{\theterm}
 
     \vgap
     Форма обучения \ulinepad{\theform}
 
-    \vgap
-    Программа разработана \hfill
-    %
-	\begin{minipage}[t]{.65\textwidth}
-	\begin{flushleft}
-	\thecreatedby
-	\end{flushleft}
-	\end{minipage}
+    \vgap\vgap
+    {\small
+    \begin{tabularx}{\textwidth}{p{0.4\textwidth}X}
+        \centering Программа разработана
+                & \uline{5cm}\hfill \theshortname{} \thedignity{}\\
+        \\
+                & \multicolumn{1}{>{\raggedright}X}{\raggedright
+                Рекомендована к утверждению на заседании кафедры
+                \thebychair{}}
+                \\
+        \\
+                & Протокол заседания №\uline{.6cm} от \uline{3cm}\\[1cm]
+                &
+                \begin{tabular}{@{}lcc}
+                Зав. кафедрой   & \hspace{2.5cm}   & \hfill В.\,С.~Пилиди\\\cline{2-3}
+                                &(\emph{подпись})      & (\emph{Ф.И.О.})\\
+                \end{tabular}
+    \end{tabularx}
+    }
 
-	\vgap
-	\begin{flushleft}
-	Рецензент(ы)
-	\end{flushleft}
-	\uline{.8\textwidth}
   \end {center}
   %
   \vspace {\fill}
@@ -165,6 +175,7 @@
 \usepackage {enumitem}
 
 % Таблицы
+\usepackage{tabularx}
 \usepackage{longtable}
 %\usepackage{float}
 %\restylefloat{longtable}
@@ -182,7 +193,7 @@
 \toggletrue{IsFirstItem} % personal preference: initialize variables
 						 %           explicetly at time of defintion
 
-\newcommand*{\WernersHRule}{ % 
+\newcommand*{\WernersHRule}{ %
    \par\kern\dimexpr.7\itemsep-\parskip-.3\baselineskip\relax%
    \hrulefill%\rule{\textwidth}{.4mm}%
    \par\kern\dimexpr.3\itemsep-.3\parskip-.3\baselineskip\relax%
@@ -256,7 +267,7 @@
 	\textbf{Самостоятельная работа:}& 							\\ \hline
 	\hspace{1.25cm}Самоподготовка (проработка и повторение лекционного материала и материала учебников и учебных пособий, подготовка к лабораторным и практическим занятиям, коллоквиумам, рубежному контролю и т.д.)%
 									& \arabic{distantHours} 	\\ \hline
-	Вид итогового контроля (зачет, экзамен)% 
+	Вид итогового контроля (зачет, экзамен)%
 									& \thecontol				\\ \hline
 	\end{longtabu}
 
@@ -265,18 +276,18 @@
 		\caption*{\textsc{Модули дисциплины, изучаемые в \theglobalterm{} семестре}} \\
 
 		\hline
-		& 
+		&
 		& \multicolumn{5}{c|}{\bfseries Количество часов} \\ \cline{3-7}
 		%
 	\bfseries
 	\begin{tabular}{@{}c@{}}
-		№ \\ модуля 
+		№ \\ модуля
 	\end{tabular}
 		& \centering\bfseries Наименование модулей
 	    & \bfseries Всего
 	    & \multicolumn{3}{c|}{\bfseries%
 		    \begin{tabular}{@{}c@{}}
-			Аудиторная \\ работа 
+			Аудиторная \\ работа
 			\end{tabular}}
 	    & \bfseries
 	    	\begin{tabular}{@{}c@{}}
@@ -288,7 +299,7 @@
 		& \bfseries Л
 		& \bfseries ПЗ
 		& \bfseries ЛР
-		& 
+		&
 		\\ \hline
 	%
 	% Цикл генерации строк таблицы с часами для каждого модуля
@@ -300,7 +311,7 @@
 			+ \getvalue{UnitSeminarHours/\arabic{myunitIdx}}
 			+ \getvalue{UnitLabHours/\arabic{myunitIdx}}}%
 		\IfEq{\arabic{myunitIdx}}{1}{\hspace{-1mm}}{} % ужасный хак
-		\arabic{myunitIdx} 
+		\arabic{myunitIdx}
 			& \getvalue{UnitNames/\arabic{myunitIdx}}
 			& \arabic{wholeUnitHours}
 			& \getvalue{UnitLectureHours/\arabic{myunitIdx}}
@@ -314,7 +325,7 @@
 		& \ifZeroErase{\arabic{lectureHours}}
 		& \ifZeroErase{\arabic{seminarHours}}
 		& \ifZeroErase{\arabic{labHours}}
-		& \arabic{distantHours} 
+		& \arabic{distantHours}
 		\\ \hline
 	\end{longtabu}
 }
@@ -351,12 +362,12 @@
 	\hline
 	\bfseries
 	\begin{tabular}{c}
-		№ \\ ЛР 
+		№ \\ ЛР
 	\end{tabular}
 		&
 		\bfseries
 		\begin{tabular}{c}
-			№ \\ модуля 
+			№ \\ модуля
 		\end{tabular}
 		&
 		\centering\bfseries Наименование лабораторных работ
@@ -379,12 +390,12 @@
 	\hline
 	\bfseries
 	\begin{tabular}{c}
-		№ \\ занятия 
+		№ \\ занятия
 	\end{tabular}
 		&
 		\bfseries
 		\begin{tabular}{c}
-			№ \\ модуля 
+			№ \\ модуля
 		\end{tabular}
 		&
 		\centering\bfseries Тема
@@ -398,11 +409,19 @@
 \end{longtabu}
 }
 
-\newcommand{\rusitems}{%
 \makeatletter
     \AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
 \makeatother
+
+\newcommand{\rusitems}{%
 \renewcommand{\labelenumi}{\asbuk{enumi})}
 }
+
+\renewcommand{\labelenumii}{\asbuk{enumii})}
+
+% неразрывный дефис; обозначение: "/
+\makeatletter
+    \defineshorthand[russian]{"/}{\mbox{-}\bbl@allowhyphens}
+\makeatother
 
 \endinput
