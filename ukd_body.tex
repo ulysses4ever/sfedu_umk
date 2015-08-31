@@ -1,6 +1,6 @@
 % сверху можно ничего не редактировать
-\begin{spacing}{1.5}
-\begin{center}
+\begin{spacing}{1.2}
+\begin{center}\small
 \ulinepad{\theects} зач. ед., ак. ч. всего: \ulinepad{\arabic{wholeHours}}, в т. ч.:
 \IfEq{\arabic{lectureHours}}{0}{}{\ulinepad{\arabic{lectureHours}~ч.} лекций,}
 \IfEq{\arabic{seminarHours}}{0}{}{\ulinepad{\arabic{seminarHours}~ч.} практич.,}
@@ -8,13 +8,9 @@
 \IfEq{\arabic{distantHours}}{0}{}{\ulinepad{\arabic{distantHours}~ч.} СР}
 \end{center}
 
-\noindent Преподаватели: \fillanswer{Юлия Вячеславовна Белякова}
+\noindent Преподаватель: \fillanswer{}
 
-\noindent \hphantom{Преподаватели}\fillanswer{Виталий Николаевич Брагилевский}
-
-\noindent \hphantom{Преподаватели}\fillanswer{\thefullname}
-
-\noindent Кафедра: \fillanswer{\thebychair}
+\noindent Кафедра: \fillanswer{}
 
 \noindent Курс: \ulinepad{\theyearofstudy} Семестр: \ulinepad{\theglobalterm}
 
@@ -38,7 +34,7 @@
 
 % внесите перечень мероприятий в рамках каждого модуля и баллы за них
 {\small\tabulinesep = 2mm
-\begin{longtabu} to \textwidth {|c|X[3,p]|X[c]|X[c]|}%c|
+\begin{longtabu} to \textwidth {|c|X[4,p]|X[c]|X[c]|}%c|
 	\hline
 	№
 		&

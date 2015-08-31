@@ -33,7 +33,7 @@
 
 % ----------------------------------------------------------------
 
-% интерфейс для сохранения значений, которые будут использоваться в 
+% интерфейс для сохранения значений, которые будут использоваться в
 %	нескольких местах
 \usepackage{pgfkeys}
 \newcommand{\setvalue}[1]{\pgfkeys{/variables/#1}}
@@ -46,7 +46,7 @@
 }
 
 % Средства для сохранения имён модулей
-% пространство имён переменных для хранения имён модулей 
+% пространство имён переменных для хранения имён модулей
 % (должны быть заданы в unit_names.tex)
 \declare{UnitNames/}
 
@@ -129,6 +129,11 @@
   \newcommand \theshortname {#1} %
 } %
 
+\newcommand \dignity [1] %
+{ %
+  \newcommand \thedignity {#1} %
+} %
+
 \newcommand \shortdirection [1] %
 { %
   \newcommand \theshortdirection {#1} %
@@ -146,7 +151,7 @@
 % счётчик модулей
 \newcounter{myunitIdx}
 \setcounter{myunitIdx}{0}
- 
+
 % величины для последней строки таблицы (Итого)
 \newcounter{wholeHours}
 \newcounter{lectureHours}
