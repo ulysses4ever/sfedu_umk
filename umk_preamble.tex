@@ -237,12 +237,24 @@
 }
 
 % Команда для печати расчасовки модулей (printhours)
-
+% не доделана после изменений 2015 года, SORRY!
 \usepackage{forloop}
 
 \newcommand{\printhours}{
-	Общая трудоемкость дисциплины составляет
-	\ulinepad{\theects} зач.~ед. (\ulinepad{\arabic{wholeHours}} часов).
+	Трудоемкость дисциплины составляет
+	\ulinepad{\theects} зачётные единицы, \arabic{wholeHours} часов,
+	из них
+\ifthenelse{\value{lectureHours} = 0}{}{%
+\arabic{lectureHours} лекционных часов}%
+%
+\ifthenelse{\value{lectureHours} = 0}{}{%
+, \arabic{lectureHours} лекционных часов}
+%
+\ifthenelse{\value{lectureHours} = 0}{}{%
+, \arabic{lectureHours} лекционных часов}
+%
+\ifthenelse{\value{lectureHours} = 0}{}{%
+, \arabic{lectureHours} лекционных часов}
 
 	% Первая таблица с суммами
 	%	оформление:
